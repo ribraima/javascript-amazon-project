@@ -7,11 +7,7 @@ import {
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
-hello();
-
-const today = dayjs();
-const deliveryDate = today.add(7, "days"); //adds 7 days to today's date
-console.log(deliveryDate.format("dddd, MMMM D")); //we use this method to format the date as per our wish
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -124,6 +120,7 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`
       );
       container.remove();
+      renderPaymentSummary();
     });
   });
 
@@ -132,6 +129,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary(); //it takes the updated data and regenerates the HTML
+      renderPaymentSummary();
     });
   });
 }
