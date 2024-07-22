@@ -1,14 +1,14 @@
 class Cart {
     cartItems;
-    localStorageKey;
+    #localStorageKey; // we use # before private properties
 
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;  
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;  
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() { // shortcut for loadFromStorage : function () {}
-            this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage() { // shortcut for loadFromStorage : function () {}
+            this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
             if (!this.cartItems) {
               this.cartItems = [
                 {
@@ -26,7 +26,7 @@ class Cart {
         }
 
     saveToStorage() {
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
         }
     
     addToCart(productId) {
@@ -80,7 +80,6 @@ class Cart {
 
 const cart = new Cart('cart-oop'); // cart and businessCart are instances of the Cart class
 const businessCart = new Cart('cart-business'); //inside the brackets its the parameter of the constructor
-
 
 
 console.log(cart);
