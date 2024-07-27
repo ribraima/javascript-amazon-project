@@ -5,19 +5,37 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js'
 //import '../data/backend-practice.js'
 
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve) =>{
-        loadCart(() => {
-            resolve();
-        });
-    }),
+async function loadPage() { //makes the function return a promise
 
-]).then((values)=>{
-    console.log(values);
+    await loadProductsFetch(); //await lets us write asynchronous code like normal code
+//we can only use await when we are inside an async function
+// the closest func has to be async
+    const value = await new Promise((resolve) =>{
+        loadCart(() => {
+            resolve('value 3');
+        });
+    });
+
     renderOrderSummary();
     renderPaymentSummary(); 
-});
+
+}
+loadPage();
+    
+
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve) =>{
+//         loadCart(() => {
+//             resolve();
+//         });
+//     }),
+
+// ]).then((values)=>{
+//     console.log(values);
+//     renderOrderSummary();
+//     renderPaymentSummary(); 
+// });
 
 // new Promise((resolve) => { //similar to done function, lets us control when to go to the next step
 //     loadProducts(() => {
